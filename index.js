@@ -23,9 +23,11 @@ parsedData.forEach((item) => {
     map.get(item.Class.split('.')[0]).push(item);
 });
 
+const parsedMap = new Map();
+
 // Print the map
-map.forEach((value, key) => {
-    console.log("\x1b[31m","\x1b[4m",`${key}`,"\x1b[0m");
+map.forEach((value, key1) => {
+    console.log("\x1b[31m","\x1b[4m",`${key1}`,"\x1b[0m");
 
     const newMap = new Map();
     value.forEach((item) => {
@@ -48,5 +50,19 @@ map.forEach((value, key) => {
 
         console.log(`Method: ${key} | Average Time: ${total / count}ms | Total Time: ${total}ms | Total Calls: ${count}`);
 
+        // Put everything into parsedMap
+        if (parsedMap !== null && !parsedMap.has(key1)) {
+            parsedMap.set(key1, []);
+        }
+
+        parsedMap.get(key1).push({
+            "Method": key,
+            "Average Time": total / count,
+            "Total Time": total,
+            "Total Calls": count
+        });
     });
 });
+
+// console.log(parsedMap);
+
